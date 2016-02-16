@@ -1,1 +1,1 @@
-ISP billing and control system SPA frontend
+ISP billing, accounting and control system SPA frontend
