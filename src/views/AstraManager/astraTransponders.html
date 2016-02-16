@@ -1,0 +1,249 @@
+<h3>Транспондеры</h3>
+<div ng-controller="astraTranspondersController">
+    <p class="bs-component btn-group-sm">
+        <button class="btn btn-fab btn-success" ng-click="showCreate()"><i class="material-icons">add</i></button>
+    </p>
+    <div class="panel panel-default" ng-show="panelCreate">
+        <div class="panel-heading">
+            Создание транспондера
+        </div>
+        <div class="panel-body">
+            <form class="form">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="transponderName" class="control-label">Имя</label>
+                            <input type="text" class="form-control" id="transponderName" ng-model="transponderName">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group label-static">
+                            <label for="transponderSat" class="control-label">Спутник</label>
+                            <select class="form-control" id="transponderSat" ng-model="transponderSat" ng-options="item for item in sats" ng-init="transponderSat = sats[0]"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="transponderFreq" class="control-label">Частота</label>
+                            <input type="text" class="form-control" id="transponderFreq" ng-model="transponderFreq">
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="transponderPolarity" class="control-label">Поляризация</label>
+                            <select class="form-control" id="transponderPolarity" ng-model="transponderPolarity" ng-options="item for item in polarities" ng-init="transponderPolarity = polarities[0]"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group label-static">
+                            <label for="transponderLNB" class="control-label">LNB</label>
+                            <select class="form-control" id="transponderLNB" ng-model="transponderLNB" ng-options="item for item in lnbs" ng-init="transponderLNB = lnbs[0]"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="transponderFEC" class="control-label">FEC</label>
+                            <select class="form-control" id="transponderFEC" ng-model="transponderFEC" ng-options="item for item in fecs" ng-init="transponderFEC = fecs[0]"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="transponderSymbolrate" class="control-label">Symbolrate</label>
+                            <select class="form-control" id="transponderSymbolrate" ng-model="transponderSymbolrate" ng-options="item for item in symbolrates" ng-init="transponderSymbolrate = symbolrates[0]"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="transponderType" class="control-label">Тип</label>
+                            <select class="form-control" id="transponderType" ng-model="transponderType" ng-options="item for item in types" ng-init="transponderType = types[0]"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="transponderServer" class="control-label">Сервер</label>
+                            <select class="form-control" id="transponderServer" ng-model="transponderServer" ng-change="updateAdapters()" ng-options="item as item.serverName for item in servers track by item.id"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="transponderAdapter" class="control-label">Адаптер</label>
+                            <select class="form-control" id="transponderAdapter" ng-model="transponderAdapter" ng-options="item as item.adapterDevice for item in adapters track by item.id"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group label-static">
+                            <label for="transponderComment" class="control-label">Комментарий</label>
+                            <input type="text" class="form-control" id="transponderComment" ng-model="transponderComment">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9"></div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-sm btn-default" ng-click="cancelCreate()">Отмена</button>
+                        <button class="btn btn-sm btn-primary" ng-click="saveCreate()">Сохранить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Спутник</th>
+                <th>Частота</th>
+                <th>Поляризация</th>
+                <th>Тип</th>
+                <th>Сервер</th>
+                <th>Device</th>
+                <th>Адаптер</th>
+                <th>LNB</th>
+                <th>FEC</th>
+                <th>Symbolrate</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat-start="transponder in transponders" ng-show="!transponder.panelEdit">
+                <td>{{ $index }}</td>
+                <td>{{ transponder.id }}</td>
+                <td>{{ transponder.transponderSat }}</td>
+                <td>{{ transponder.transponderFreq }}</td>
+                <td>{{ transponder.transponderPolarity }}</td>
+                <td>{{ transponder.transponderType }}</td>
+                <td>{{ transponder.serverName }}</td>
+                <td>{{ transponder.adapterDevice }}</td>
+                <td>{{ transponder.adapterCard }}</td>
+                <td>{{ transponder.transponderLNB }}</td>
+                <td>{{ transponder.transponderFEC }}</td>
+                <td>{{ transponder.transponderSymbolrate }}</td>
+                <td class="col-sm-3">
+                    <button class="btn btn-danger btn-xs" ng-click="showDelete(transponder)"><i class="material-icons">delete</i></button>
+                    <button class="btn btn-default btn-xs" ng-click="showEdit(transponder)"><i class="material-icons">mode_edit</i></button>
+                    <button class="btn btn-warning btn-xs" ng-click="showStop(transponder)"><i class="material-icons">stop</i></button>
+                    <button class="btn btn-warning btn-xs" ng-click="showRestart(transponder)"><i class="material-icons">replay</i></button>
+
+                    <span ng-show="transponder.panelDelete">
+                        <br>Удалить?
+                        <button class="btn btn-xs btn-danger" ng-click="saveDelete(transponder)"><span
+                                class="glyphicon glyphicon-ok"></span></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelDelete(transponder)"><span
+                                class="glyphicon glyphicon-remove"></span></button>
+                    </span>
+
+                    <span ng-show="transponder.panelStop">
+                        <br>Выключить?
+                        <button class="btn btn-xs btn-danger" ng-click="saveStop(transponder)"><span
+                                class="glyphicon glyphicon-ok"></span></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelStop(transponder)"><span
+                                class="glyphicon glyphicon-remove"></span></button>
+                    </span>
+
+                    <span ng-show="transponder.panelRestart">
+                        <br>Перезапустить?
+                        <button class="btn btn-xs btn-danger" ng-click="saveRestart(transponder)"><span
+                                class="glyphicon glyphicon-ok"></span></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelRestart(transponder)"><span
+                                class="glyphicon glyphicon-remove"></span></button>
+                    </span>
+                </td>
+            </tr>
+            <tr ng-repeat-end ng-show="transponder.panelEdit">
+                <td colspan="13">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Редактирование транспондера #{{ $index }}
+                        </div>
+                        <div class="panel-body">
+                            <form class="form">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="transponderID" class="control-label">ID</label>
+                                            <input type="text" class="form-control" id="transponderID" ng-model="transponder.id" ng-disabled="true">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="transponderName" class="control-label">Имя</label>
+                                            <input type="text" class="form-control" id="transponderName" ng-model="transponder.transponderName">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group label-static">
+                                            <label for="transponderSat" class="control-label">Спутник</label>
+                                            <select class="form-control" id="transponderSat" ng-model="transponder.transponderSat" ng-options="item for item in sats"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="transponderFreq" class="control-label">Частота</label>
+                                            <input type="text" class="form-control" id="transponderFreq" ng-model="transponder.transponderFreq">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="transponderPolarity" class="control-label">Поляризация</label>
+                                            <select class="form-control" id="transponderPolarity" ng-model="transponder.transponderPolarity" ng-options="item for item in polarities"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group label-static">
+                                            <label for="transponderLNB" class="control-label">LNB</label>
+                                            <select class="form-control" id="transponderLNB" ng-model="transponder.transponderLNB" ng-options="item for item in lnbs"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="transponderFEC" class="control-label">FEC</label>
+                                            <select class="form-control" id="transponderFEC" ng-model="transponder.transponderFEC" ng-options="item for item in fecs"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="transponderSymbolrate" class="control-label">Symbolrate</label>
+                                            <select class="form-control" id="transponderSymbolrate" ng-model="transponder.transponderSymbolrate" ng-options="item for item in symbolrates"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="transponderType" class="control-label">Тип</label>
+                                            <select class="form-control" id="transponderType" ng-model="transponder.transponderType" ng-options="item for item in types"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="transponderServer" class="control-label">Сервер</label>
+                                            <select class="form-control" id="transponderServer" ng-model="transponder.transponderServer" ng-change="updateAdapters(transponder)" ng-options="item as item.serverName for item in servers track by item.id"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="transponderAdapter" class="control-label">Адаптер</label>
+                                            <select class="form-control" id="transponderAdapter" ng-model="transponder.transponderAdapter" ng-options="item as item.adapterDevice for item in adapters track by item.id"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group label-static">
+                                            <label for="transponderComment" class="control-label">Комментарий</label>
+                                            <input type="text" class="form-control" id="transponderComment" ng-model="transponder.transponderComment">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-9"></div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-sm btn-default" ng-click="cancelEdit(transponder)">Отмена</button>
+                                        <button class="btn btn-sm btn-primary" ng-click="saveEdit(transponder)">Сохранить</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,30 @@
+{
+  "name": "NCCfront",
+  "description": "NCC system SPA frontend",
+  "main": "",
+  "authors": [
+    "seko99"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/seko99/NCC",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.*",
+    "angular-mocks": "1.5.*",
+    "angular-route": "1.5.*",
+    "angular-resource": "1.5.*",
+    "bootstrap": "3.*",
+    "bootstrap-material-design": "*",
+    "angular-jsonrpc-client": "*",
+    "snackbarjs": "*",
+    "nouislider": "*"
+  }
+}

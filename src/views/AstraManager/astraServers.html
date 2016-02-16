@@ -1,0 +1,149 @@
+<h3>Серверы</h3>
+<div ng-controller="astraServersController">
+    <p class="bs-component btn-group-sm">
+        <button class="btn btn-fab btn-success" ng-click="showCreate()"><i class="material-icons">add</i></button>
+    </p>
+    <div class="panel panel-default" ng-show="panelCreate">
+        <div class="panel-heading">
+            Создание сервера
+        </div>
+        <div class="panel-body">
+            <form class="form">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="serverIP" class="control-label">IP</label>
+                            <input type="text" class="form-control" id="serverIP" ng-model="serverIP">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group label-static">
+                            <label for="serverName" class="control-label">Имя</label>
+                            <input type="text" class="form-control" id="serverName" ng-model="serverName">
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="serverSecret" class="control-label">Secret</label>
+                            <input type="text" class="form-control" id="serverSecret" ng-model="serverSecret">
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="serverLocalAddress" class="control-label">Local address</label>
+                            <input type="text" class="form-control" id="serverLocalAddress" ng-model="serverLocalAddress">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group label-static">
+                            <label for="serverComment" class="control-label">Комментарий</label>
+                            <input type="text" class="form-control" id="serverComment" ng-model="serverComment">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9"></div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-sm btn-default" ng-click="cancelCreate()">Отмена</button>
+                        <button class="btn btn-sm btn-primary" ng-click="saveCreate()">Сохранить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>IP</th>
+                <th>Имя</th>
+                <th>Secret</th>
+                <th>Local address</th>
+                <th>Комментарий</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat-start="server in servers" ng-show="!server.panelEdit">
+                <td>{{ $index }}</td>
+                <td>{{ server.id }}</td>
+                <td>{{ long2ip(server.serverIP) }}</td>
+                <td>{{ server.serverName }}</td>
+                <td>{{ server.serverSecret }}</td>
+                <td>{{ long2ip(server.serverLocalAddress) }}</td>
+                <td>{{ server.serverComment }}</td>
+                <td class="col-sm-3">
+                    <button class="btn btn-danger btn-xs" ng-click="showDelete(server)"><i class="material-icons">delete</i></button>
+                    <button class="btn btn-default btn-xs" ng-click="showEdit(server)"><i class="material-icons">mode_edit</i></button>
+
+                    <span ng-show="server.panelDelete">
+                        Удалить?
+                        <button class="btn btn-xs btn-danger" ng-click="saveDelete(server)"><span
+                                class="glyphicon glyphicon-ok"></span></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelDelete(server)"><span
+                                class="glyphicon glyphicon-remove"></span></button>
+                    </span>
+                </td>
+            </tr>
+            <tr ng-repeat-end ng-show="server.panelEdit">
+                <td colspan="8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Редактирование сервера #{{ $index }}
+                        </div>
+                        <div class="panel-body">
+                            <form class="form">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="serverID" class="control-label">ID</label>
+                                            <input type="text" class="form-control" id="serverID" ng-model="server.id" ng-disabled="true">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="serverIP" class="control-label">IP</label>
+                                            <input type="text" class="form-control" id="serverIP" ng-model="server.serverIpHR">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group label-static">
+                                            <label for="serverName" class="control-label">Имя</label>
+                                            <input type="text" class="form-control" id="serverName" ng-model="server.serverName">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="serverSecret" class="control-label">Secret</label>
+                                            <input type="text" class="form-control" id="serverSecret" ng-model="server.serverSecret">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="serverLocalAddressHR" class="control-label">Local address</label>
+                                            <input type="text" class="form-control" id="serverLocalAddressHR" ng-model="server.serverLocalAddressHR">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group label-static">
+                                            <label for="serverComment" class="control-label">Комментарий</label>
+                                            <input type="text" class="form-control" id="serverComment" ng-model="server.serverComment">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-9"></div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-sm btn-default" ng-click="cancelEdit(server)">Отмена</button>
+                                        <button class="btn btn-sm btn-primary" ng-click="saveEdit(server)">Сохранить</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

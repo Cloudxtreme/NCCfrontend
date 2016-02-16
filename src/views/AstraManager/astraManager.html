@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-1"><a href="https://cesbo.com/ru/astra/" target="_blank"><img src="img/cesbo-logo-white.png"></a></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bs-component">
+                <ul class="nav nav-tabs">
+                    <li><a href="#channels" data-toggle="tab">Каналы</a></li>
+                    <li class="active"><a href="#transponders" data-toggle="tab">Транспондеры</a></li>
+                    <li><a href="#adapters" data-toggle="tab">Адаптеры</a></li>
+                    <li><a href="#servers" data-toggle="tab">Серверы</a></li>
+                    <li><a href="#cams" data-toggle="tab">Декодеры</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane" id="channels">
+                        <div class="panel" ng-include="'views/AstraManager/astraChannels.html'">
+                        </div>
+                    </div>
+                    <div class="tab-pane active" id="transponders">
+                        <div class="panel" ng-include="'views/AstraManager/astraTransponders.html'">
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="adapters">
+                        <div class="panel" ng-include="'views/AstraManager/astraAdapters.html'">
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="servers">
+                        <div class="panel" ng-include="'views/AstraManager/astraServers.html'">
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="cams">
+                        <div class="panel" ng-include="'views/AstraManager/astraCams.html'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,161 @@
+<h3>Декодеры</h3>
+<div ng-controller="astraCamsController">
+    <p class="bs-component btn-group-sm">
+        <button class="btn btn-fab btn-success" ng-click="showCreate()"><i class="material-icons">add</i></button>
+    </p>
+    <div class="panel panel-default" ng-show="panelCreate">
+        <div class="panel-heading">
+            Создание декодера
+        </div>
+        <div class="panel-body">
+            <form class="form">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="camName" class="control-label">Имя</label>
+                            <input type="text" class="form-control" id="camName" ng-model="camName">
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="camServer" class="control-label">Адрес</label>
+                            <input type="text" class="form-control" id="camServer" ng-model="camServer">
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="camPort" class="control-label">Порт</label>
+                            <input type="text" class="form-control" id="camPort" ng-model="camPort">
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="camUser" class="control-label">Логин</label>
+                            <input type="text" class="form-control" id="camUser" ng-model="camUser">
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="camPassword" class="control-label">Пароль</label>
+                            <input type="text" class="form-control" id="camPassword" ng-model="camPassword">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group label-static">
+                            <label for="camKey" class="control-label">Key</label>
+                            <input type="text" class="form-control" id="camKey" ng-model="camKey" ng-init="camKey = '0102030405060708091011121314'">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9"></div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-sm btn-default" ng-click="cancelCreate()">Отмена</button>
+                        <button class="btn btn-sm btn-primary" ng-click="saveCreate()">Сохранить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Адрес</th>
+                <th>Порт</th>
+                <th>Логин</th>
+                <th>Пароль</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat-start="cam in cams" ng-show="!cam.panelEdit">
+                <td>{{ $index }}</td>
+                <td>{{ cam.id }}</td>
+                <td>{{ cam.camName }}</td>
+                <td>{{ cam.camServer }}</td>
+                <td>{{ cam.camPort }}</td>
+                <td>{{ cam.camUser }}</td>
+                <td>{{ cam.camPassword }}</td>
+                <td class="col-sm-3">
+                    <button class="btn btn-danger btn-xs" ng-click="showDelete(cam)"><i class="material-icons">delete</i></button>
+                    <button class="btn btn-default btn-xs" ng-click="showEdit(cam)"><i class="material-icons">mode_edit</i></button>
+
+                    <span ng-show="cam.panelDelete">
+                        Удалить?
+                        <button class="btn btn-xs btn-danger" ng-click="saveDelete(cam)"><span
+                                class="glyphicon glyphicon-ok"></span></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelDelete(cam)"><span
+                                class="glyphicon glyphicon-remove"></span></button>
+                    </span>
+                </td>
+            </tr>
+            <tr ng-repeat-end ng-show="cam.panelEdit">
+                <td colspan="8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Редактирование декодера #{{ $index }}
+                        </div>
+                        <div class="panel-body">
+                            <form class="form">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="camID" class="control-label">ID</label>
+                                            <input type="text" class="form-control" id="camID" ng-model="cam.id" ng-disabled="true">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="camName" class="control-label">Имя</label>
+                                            <input type="text" class="form-control" id="camName" ng-model="cam.camName">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="camServer" class="control-label">Адрес</label>
+                                            <input type="text" class="form-control" id="camServer" ng-model="cam.camServer">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="camPort" class="control-label">Порт</label>
+                                            <input type="text" class="form-control" id="camPort" ng-model="cam.camPort">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="camUser" class="control-label">Логин</label>
+                                            <input type="text" class="form-control" id="camUser" ng-model="cam.camUser">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="camPassword" class="control-label">Пароль</label>
+                                            <input type="text" class="form-control" id="camPassword" ng-model="cam.camPassword">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group label-static">
+                                            <label for="camKey" class="control-label">Key</label>
+                                            <input type="text" class="form-control" id="camKey" ng-model="cam.camKey">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-9"></div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-sm btn-default" ng-click="cancelEdit(cam)">Отмена</button>
+                                        <button class="btn btn-sm btn-primary" ng-click="saveEdit(cam)">Сохранить</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

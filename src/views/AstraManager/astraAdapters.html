@@ -1,0 +1,135 @@
+<h3>Адаптеры</h3>
+<div ng-controller="astraAdaptersController">
+    <p class="bs-component btn-group-sm">
+        <button class="btn btn-fab btn-success" ng-click="showCreate()"><i class="material-icons">add</i></button>
+    </p>
+    <div class="panel panel-default" ng-show="panelCreate">
+        <div class="panel-heading">
+            Создание адаптера
+        </div>
+        <div class="panel-body">
+            <form class="form">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="adapterDevice" class="control-label">Device</label>
+                            <input type="text" class="form-control" id="adapterDevice" ng-model="adapterDevice">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group label-static">
+                            <label for="adapterType" class="control-label">Тип</label>
+                            <select class="form-control" id="adapterType" ng-model="adapterType" ng-options="item as item.cardName for item in adapterTypes track by item.id"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="adapterServer" class="control-label">Сервер</label>
+                            <select class="form-control" id="adapterServer" ng-model="adapterServer" ng-options="item as item.serverName for item in servers track by item.id"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group label-static">
+                            <label for="adapterComment" class="control-label">Комментарий</label>
+                            <input type="text" class="form-control" id="adapterComment" ng-model="adapterComment">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9"></div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-sm btn-default" ng-click="cancelCreate()">Отмена</button>
+                        <button class="btn btn-sm btn-primary" ng-click="saveCreate()">Сохранить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Сервер</th>
+                <th>Device</th>
+                <th>Тип</th>
+                <th>Комментарий</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat-start="adapter in adapters" ng-show="!adapter.panelEdit">
+                <td>{{ $index }}</td>
+                <td>{{ adapter.id }}</td>
+                <td>{{ getItemById(adapter.serverId, servers).serverName }}</td>
+                <td>{{ adapter.adapterDevice }}</td>
+                <td>{{ getItemById(adapter.adapterType, adapterTypes).cardName }}</td>
+                <td>{{ adapter.adapterComment }}</td>
+                <td class="col-sm-3">
+                    <button class="btn btn-danger btn-xs" ng-click="showDelete(adapter)"><i class="material-icons">delete</i></button>
+                    <button class="btn btn-default btn-xs" ng-click="showEdit(adapter)"><i class="material-icons">mode_edit</i></button>
+
+                    <span ng-show="adapter.panelDelete">
+                        Удалить?
+                        <button class="btn btn-xs btn-danger" ng-click="saveDelete(adapter)"><span
+                                class="glyphicon glyphicon-ok"></span></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelDelete(adapter)"><span
+                                class="glyphicon glyphicon-remove"></span></button>
+                    </span>
+                </td>
+            </tr>
+            <tr ng-repeat-end ng-show="adapter.panelEdit">
+                <td colspan="7">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Редактирование адаптера #{{ $index }}
+                        </div>
+                        <div class="panel-body">
+                            <form class="form">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="adapterID" class="control-label">ID</label>
+                                            <input type="text" class="form-control" id="adapterID" ng-model="adapter.id" ng-disabled="true">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="adapterDevice" class="control-label">Device</label>
+                                            <input type="text" class="form-control" id="adapterDevice" ng-model="adapter.adapterDevice">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group label-static">
+                                            <label for="adapterType" class="control-label">Тип</label>
+                                            <select class="form-control" id="adapterType" ng-options="item as item.cardName for item in adapterTypes track by item.id" ng-model="adapter.adapterType"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-group label-static">
+                                            <label for="adapterServer" class="control-label">Сервер</label>
+                                            <select class="form-control" id="adapterServer" ng-options="item as item.serverName for item in servers track by item.id" ng-model="adapter.adapterServer"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group label-static">
+                                            <label for="adapterComment" class="control-label">Комментарий</label>
+                                            <input type="text" class="form-control" id="adapterComment" ng-model="adapter.adapterComment">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-9"></div>
+                                    <div class="col-sm-3">
+                                        <button class="btn btn-sm btn-default" ng-click="cancelEdit(adapter)">Отмена</button>
+                                        <button class="btn btn-sm btn-primary" ng-click="saveEdit(adapter)">Сохранить</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
