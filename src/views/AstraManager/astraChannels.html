@@ -1,42 +1,142 @@
 <h3>Каналы</h3>
-<button class="btn btn-success" data-toggle="modal" data-target="#createChannel"><span class="glyphicon glyphicon-plus"></span> Добавить канал
-</button>
-<table class="table table-bordered table-condensed">
-    <tr>
-        <th>#</th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
-    <tr ng-repeat="channel in channels">
-        <td>{{ channel.channelId }}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>
-            <button class="btn btn-default btn-xs"><span
-                    class="glyphicon glyphicon-trash"></span></button>
-            <button class="btn btn-default btn-xs"><span
-                    class="glyphicon glyphicon-edit"></span></button>
-        </td>
-    </tr>
-</table>
-<div class="modal" id="createChannel" tabindex="-1" role="dialog" aria-labelledby="createChannelLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="createChannelLabel">Новый канал</h4>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary">Сохранить</button>
-            </div>
+<div ng-controller="astraChannelsController">
+    <p class="bs-component btn-group-sm">
+        <button class="btn btn-fab btn-success" ng-click="showCreate()"><i class="material-icons">add</i></button>
+    </p>
+    <div class="panel panel-default" ng-show="panelCreate">
+        <div class="panel-heading">
+            Создание канала
+        </div>
+        <div class="panel-body">
+            <form class="form">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group label-static">
+                            <label for="channelName" class="control-label">Имя</label>
+                            <input type="text" class="form-control" id="channelName" ng-model="channelName">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group label-static">
+                            <label for="channelTransponder" class="control-label">Транспондер</label>
+                            <select class="form-control" id="channelTransponder" ng-model="channelTransponder" ng-options="item as item.transponderSat+' '+item.transponderFreq+item.transponderPolarity for item in transponders track by item.id"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="channelPnr" class="control-label">PNR</label>
+                            <input type="text" class="form-control" id="channelPnr" ng-model="channelPnr">
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
+                            <label for="channelCam" class="control-label">Декодер</label>
+                            <select class="form-control" id="channelCam" ng-model="channelCam" ng-options="item as item.camName for item in cams track by item.id"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group label-static">
+                            <label for="channelComment" class="control-label">Комментарий</label>
+                            <input type="text" class="form-control" id="channelComment" ng-model="channelComment">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9"></div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-sm btn-default" ng-click="cancelCreate()">Отмена</button>
+                        <button class="btn btn-sm btn-primary" ng-click="saveCreate()">Сохранить</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
+    <table class="table table-bordered table-striped table-responsive table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Транспондер</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat-start="item in channels" ng-show="!channel.panelEdit">
+            <td>{{ $index }}</td>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td class="col-sm-3">
+                <button class="btn btn-danger btn-xs" ng-click="showDelete(item)"><i class="material-icons">delete</i></button>
+                <button class="btn btn-default btn-xs" ng-click="showEdit(item)"><i class="material-icons">mode_edit</i></button>
+                <button class="btn btn-warning btn-xs" ng-click="showStop(item)"><i class="material-icons">stop</i></button>
+                <button class="btn btn-warning btn-xs" ng-click="showRestart(item)"><i class="material-icons">replay</i></button>
+
+                    <span ng-show="item.panelDelete">
+                        <br>Удалить?
+                        <button class="btn btn-xs btn-danger" ng-click="saveDelete(item)"><span
+                                class="glyphicon glyphicon-ok"></span></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelDelete(item)"><span
+                                class="glyphicon glyphicon-remove"></span></button>
+                    </span>
+
+                    <span ng-show="item.panelStop">
+                        <br>Выключить?
+                        <button class="btn btn-xs btn-danger" ng-click="saveStop(item)"><span
+                                class="glyphicon glyphicon-ok"></span></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelStop(item)"><span
+                                class="glyphicon glyphicon-remove"></span></button>
+                    </span>
+
+                    <span ng-show="item.panelRestart">
+                        <br>Перезапустить?
+                        <button class="btn btn-xs btn-danger" ng-click="saveRestart(item)"><span
+                                class="glyphicon glyphicon-ok"></span></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelRestart(item)"><span
+                                class="glyphicon glyphicon-remove"></span></button>
+                    </span>
+            </td>
+        </tr>
+        <tr ng-repeat-end ng-show="item.panelEdit">
+            <td colspan="13">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Редактирование канала #{{ $index }}
+                    </div>
+                    <div class="panel-body">
+                        <form class="form">
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <div class="form-group label-static">
+                                        <label for="channelID" class="control-label">ID</label>
+                                        <input type="text" class="form-control" id="channelID" ng-model="item.id" ng-disabled="true">
+                                    </div>
+                                </div>
+                                <div class="col-sm-1">
+                                    <div class="form-group label-static">
+                                        <label for="channelName" class="control-label">Имя</label>
+                                        <input type="text" class="form-control" id="channelName" ng-model="item.channelName">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group label-static">
+                                        <label for="channelComment" class="control-label">Комментарий</label>
+                                        <input type="text" class="form-control" id="channelComment" ng-model="item.channelComment">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9"></div>
+                                <div class="col-sm-3">
+                                    <button class="btn btn-sm btn-default" ng-click="cancelEdit(item)">Отмена</button>
+                                    <button class="btn btn-sm btn-primary" ng-click="saveEdit(item)">Сохранить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>

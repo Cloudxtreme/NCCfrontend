@@ -10,7 +10,7 @@
         <div class="panel-body">
             <form class="form">
                 <div class="row">
-                    <div class="col-sm-1">
+                    <div class="col-sm-2">
                         <div class="form-group label-static">
                             <label for="serverIP" class="control-label">IP</label>
                             <input type="text" class="form-control" id="serverIP" ng-model="serverIP">
@@ -28,7 +28,7 @@
                             <input type="text" class="form-control" id="serverSecret" ng-model="serverSecret">
                         </div>
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-sm-2">
                         <div class="form-group label-static">
                             <label for="serverLocalAddress" class="control-label">Local address</label>
                             <input type="text" class="form-control" id="serverLocalAddress" ng-model="serverLocalAddress">
@@ -68,10 +68,10 @@
             <tr ng-repeat-start="server in servers" ng-show="!server.panelEdit">
                 <td>{{ $index }}</td>
                 <td>{{ server.id }}</td>
-                <td>{{ long2ip(server.serverIP) }}</td>
+                <td>{{ server.serverIPHR }}</td>
                 <td>{{ server.serverName }}</td>
                 <td>{{ server.serverSecret }}</td>
-                <td>{{ long2ip(server.serverLocalAddress) }}</td>
+                <td>{{ server.serverLocalAddressHR }}</td>
                 <td>{{ server.serverComment }}</td>
                 <td class="col-sm-3">
                     <button class="btn btn-danger btn-xs" ng-click="showDelete(server)"><i class="material-icons">delete</i></button>
@@ -101,7 +101,7 @@
                                             <input type="text" class="form-control" id="serverID" ng-model="server.id" ng-disabled="true">
                                         </div>
                                     </div>
-                                    <div class="col-sm-1">
+                                    <div class="col-sm-2">
                                         <div class="form-group label-static">
                                             <label for="serverIP" class="control-label">IP</label>
                                             <input type="text" class="form-control" id="serverIP" ng-model="server.serverIpHR">
@@ -119,7 +119,7 @@
                                             <input type="text" class="form-control" id="serverSecret" ng-model="server.serverSecret">
                                         </div>
                                     </div>
-                                    <div class="col-sm-1">
+                                    <div class="col-sm-2">
                                         <div class="form-group label-static">
                                             <label for="serverLocalAddressHR" class="control-label">Local address</label>
                                             <input type="text" class="form-control" id="serverLocalAddressHR" ng-model="server.serverLocalAddressHR">

@@ -5,12 +5,14 @@ var nccApp = angular.module('nccApp', [
     'angular-jsonrpc-client'
 ]);
 
-nccApp.config(['$routeProvider', '$locationProvider', 'jsonrpcConfigProvider', '$httpProvider', function ($routeProvider, $locationProvider, jsonrpcConfigProvider, $httpProvider, $interval) {
+nccApp.config(['$routeProvider', '$locationProvider', 'jsonrpcConfigProvider', '$httpProvider', function ($routeProvider, $locationProvider, jsonrpcConfigProvider, $httpProvider) {
 
+/*
     $httpProvider.defaults.headers.common = {};
     $httpProvider.defaults.headers.post = {};
     $httpProvider.defaults.headers.put = {};
     $httpProvider.defaults.headers.patch = {};
+*/
 
     jsonrpcConfigProvider.set({
         url: nccProperties.API.url
@@ -33,3 +35,5 @@ nccApp.config(['$routeProvider', '$locationProvider', 'jsonrpcConfigProvider', '
     $.material.init();
 
 }]);
+
+var nccControllers = angular.module('nccControllers', []);

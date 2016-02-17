@@ -1,5 +1,5 @@
 var nccProperties = {
     API: {
-        url: 'http://localhost:8032/api'
+        url: 'http://93.170.48.8:8032/api'
     }
-}
+};
