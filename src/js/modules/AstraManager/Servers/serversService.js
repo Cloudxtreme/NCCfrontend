@@ -1,46 +1,62 @@
-nccApp.service('AstraManagerServers', ['jsonrpc', function (jsonrpc) {
+nccApp.service('AstraManagerServers', ['jsonrpc',
+    'NCC',
+    function (jsonrpc,
+              NCC) {
 
-    this.getServers = function () {
+        this.getServers = function () {
 
-        return jsonrpc.request('getAstraServers', {}).then(function (result) {
-            return result;
-        }).catch(function (error) {
-            console.log('Error getting servers');
-            console.log(error);
-            return error;
-        });
-    };
+            return NCC.apiRequest({
+                method: 'getAstraServers',
+                data: []
+            }).
+            then(function (result) {
+                return result;
+            }).catch(function (error) {
+                console.log('Error getting servers');
+                console.log(error);
+                return error;
+            });
+        };
 
-    this.createServer = function (server) {
+        this.createServer = function (server) {
 
-        return jsonrpc.request('createAstraServer', server).then(function (result) {
-            return result;
-        }).catch(function (error) {
-            console.log('Error creating server');
-            console.log(error);
-            return error;
-        });
-    };
+            return NCC.apiRequest({
+                method: 'createAstraServer',
+                data: server
+            }).then(function (result) {
+                return result;
+            }).catch(function (error) {
+                console.log('Error creating server');
+                console.log(error);
+                return error;
+            });
+        };
 
-    this.updateServer = function (server) {
+        this.updateServer = function (server) {
 
-        return jsonrpc.request('updateAstraServer', server).then(function (result) {
-            return result;
-        }).catch(function (error) {
-            console.log('Error updating server');
-            console.log(error);
-            return error;
-        });
-    };
+            return NCC.apiRequest({
+                method: 'updateAstraServer',
+                data: server
+            }).then(function (result) {
+                return result;
+            }).catch(function (error) {
+                console.log('Error updating server');
+                console.log(error);
+                return error;
+            });
+        };
 
-    this.deleteServer = function (id) {
+        this.deleteServer = function (id) {
 
-        return jsonrpc.request('deleteAstraServer', [ id ]).then(function (result) {
-            return result;
-        }).catch(function (error) {
-            console.log('Error deleting server');
-            console.log(error);
-            return error;
-        });
-    };
-}]);
+            return NCC.apiRequest({
+                method: 'deleteAstraServer',
+                data: [id]
+            }).then(function (result) {
+                return result;
+            }).catch(function (error) {
+                console.log('Error deleting server');
+                console.log(error);
+                return error;
+            });
+        };
+    }]);

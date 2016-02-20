@@ -25,6 +25,7 @@
     "bootstrap-material-design": "*",
     "angular-jsonrpc-client": "*",
     "snackbarjs": "*",
-    "nouislider": "*"
+    "nouislider": "*",
+    "crypto-js": "git://github.com/seko99/crypto-js.git"
   }
 }

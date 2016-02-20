@@ -5,6 +5,8 @@
 //= ../../bower_components/angular-resource/angular-resource.js
 //= ../../bower_components/angular-jsonrpc-client/src/angular-jsonrpc-client.js
 
+//= ../../bower_components/crypto-js/build/rollups/md5.js
+
 //= ../js/modules/NCC.js
 //= ../js/modules/nccController.js
 //= ../js/modules/nccProperties.js

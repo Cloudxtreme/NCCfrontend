@@ -17,7 +17,14 @@ nccControllers.controller('astraAdaptersController', ['$scope',
             AstraManagerServers.getServers().then(function (servers) {
                 $scope.servers = servers;
             });
+
+            $scope.adapterTypes = [];
+            AstraManagerAdapters.getAdapterTypes().then(function (adapterTypes) {
+                $scope.adapterTypes = adapterTypes;
+            });
         }
+
+        $scope.getItemById = NCC.getItemById;
 
         refresh();
 

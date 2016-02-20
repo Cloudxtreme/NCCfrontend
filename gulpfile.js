@@ -117,14 +117,15 @@ var config = {
     server: {
         baseDir: "./build"
     },
-    tunnel: true,
+    tunnel: false,
     host: 'localhost',
     port: 9000,
-    logPrefix: "Frontend_Devil"
+    logPrefix: "Frontend_Devil",
+    startPath: "/"
 };
 
 gulp.task('webserver', function () {
     browserSync(config);
 });
 
-gulp.task('default', ['build', 'webserver', 'watch']);
+gulp.task('default', ['build', 'watch']);

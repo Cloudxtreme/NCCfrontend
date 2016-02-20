@@ -1,8 +1,10 @@
 nccControllers.controller('astraTranspondersController', ['$scope',
+    'NCC',
     'AstraManagerTransponders',
     'AstraManagerServers',
     'AstraManagerAdapters',
     function ($scope,
+              NCC,
               AstraManagerTransponders,
               AstraManagerServers,
               AstraManagerAdapters) {
@@ -13,6 +15,8 @@ nccControllers.controller('astraTranspondersController', ['$scope',
         $scope.types = ['S2', 'S'];
         $scope.lnbs = ['9750:10600:11700', '10750:10750:11700'];
         $scope.sats = ['EUTELSAT 36°', 'Astra 4.8°', 'AMOS 4°'];
+
+        $scope.getItemById = NCC.getItemById;
 
         function refresh() {
             $scope.servers = [];
