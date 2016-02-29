@@ -36,6 +36,12 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group label-static">
+                            <label for="channelIP" class="control-label">IP</label>
+                            <input type="text" class="form-control" id="channelIP" ng-model="channelIP">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group label-static">
                             <label for="channelComment" class="control-label">Комментарий</label>
                             <input type="text" class="form-control" id="channelComment" ng-model="channelComment">
                         </div>
@@ -57,7 +63,9 @@
             <th>#</th>
             <th>ID</th>
             <th>Имя</th>
+            <th>PNR</th>
             <th>Транспондер</th>
+            <th>Декодер</th>
             <th></th>
         </tr>
         </thead>
@@ -66,6 +74,9 @@
             <td>{{ $index }}</td>
             <td>{{ item.id }}</td>
             <td>{{ item.name }}</td>
+            <td>{{ item.pnr }}</td>
+            <td>{{ item.transponderSat+' '+item.transponderFreq+item.transponderPolarity }}</td>
+            <td>{{ item.camName }}</td>
             <td class="col-sm-3">
                 <button class="btn btn-danger btn-xs" ng-click="showDelete(item)"><i class="material-icons">delete</i></button>
                 <button class="btn btn-default btn-xs" ng-click="showEdit(item)"><i class="material-icons">mode_edit</i></button>
@@ -98,7 +109,7 @@
             </td>
         </tr>
         <tr ng-repeat-end ng-show="item.panelEdit">
-            <td colspan="13">
+            <td colspan="7">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Редактирование канала #{{ $index }}

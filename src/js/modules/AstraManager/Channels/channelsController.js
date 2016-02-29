@@ -2,10 +2,12 @@ nccControllers.controller('astraChannelsController', ['$scope',
     'AstraManagerChannels',
     'AstraManagerTransponders',
     'AstraManagerCams',
+    'NCC',
     function ($scope,
               AstraManagerChannels,
               AstraManagerTransponders,
-              AstraManagerCams) {
+              AstraManagerCams,
+              NCC) {
 
         function refresh() {
         }
@@ -30,6 +32,17 @@ nccControllers.controller('astraChannelsController', ['$scope',
 
         $scope.saveCreate = function () {
             $scope.panelCreate = false;
+
+            AstraManagerChannels.createChannel([
+                $scope.channelName,
+                $scope.channelTransponder.id,
+                $scope.channelPnr,
+                $scope.channelCam.id,
+                NCC.ip2long($scope.channelIP),
+                $scope.channelComment
+            ]).then(function (result) {
+                refresh();
+            });
         };
 
         $scope.showDelete = function (item) {
