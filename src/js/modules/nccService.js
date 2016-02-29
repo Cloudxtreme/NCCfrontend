@@ -31,7 +31,7 @@ nccApp.service('NCC', ['jsonrpc', function (jsonrpc) {
         var apiKey = CryptoJS.MD5(CryptoJS.MD5(login) + password).toString();
 
         console.log('apiRequest: ' + request.method + ' with apiKey=' + apiKey);
-        console.log([apiKey].concat(request.data));
+        //console.log([apiKey].concat(request.data));
 
         return jsonrpc.request(request.method, [apiKey].concat(request.data)).then(function (result) {
             return result;

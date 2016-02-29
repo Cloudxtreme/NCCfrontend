@@ -10,12 +10,28 @@ nccControllers.controller('astraChannelsController', ['$scope',
               NCC) {
 
         function refresh() {
+            $scope.channels = [];
+
+            AstraManagerChannels.getChannels().then(function(channels){
+
+                for(c in channels){
+                    channels[c].channelIPHR = NCC.long2ip(channels[c].channelIP);
+                }
+
+                $scope.channels = channels;
+            });
         }
 
         refresh();
 
         $scope.showCreate = function () {
             $scope.panelCreate ? $scope.panelCreate = false : $scope.panelCreate = true;
+
+            $scope.channelName = '';
+            $scope.channelPnr = '';
+            $scope.channelIP = '';
+            $scope.channelTransponder = 0;
+            $scope.channelCam = 0;
 
             AstraManagerTransponders.getTransponders().then(function (transponders) {
                 $scope.transponders = transponders;
@@ -55,10 +71,26 @@ nccControllers.controller('astraChannelsController', ['$scope',
 
         $scope.saveDelete = function (item) {
             item.panelDelete = false;
+
+            AstraManagerChannels.deleteChannel(item.channelId).then(function(result){
+                refresh();
+            });
         };
 
         $scope.showEdit = function (item) {
             item.panelEdit = true;
+
+            AstraManagerTransponders.getTransponders().then(function (transponders) {
+                $scope.transponders = transponders;
+
+                item.channelTransponder = NCC.getItemById(item.transponderId, $scope.transponders);
+            });
+
+            AstraManagerCams.getCams().then(function (cams) {
+                $scope.cams = cams;
+
+                item.channelCam = NCC.getItemById(item.camId, $scope.cams);
+            });
         };
 
         $scope.cancelEdit = function (item) {
@@ -67,6 +99,17 @@ nccControllers.controller('astraChannelsController', ['$scope',
 
         $scope.saveEdit = function (item) {
             item.panelEdit = false;
+
+            AstraManagerChannels.updateChannel([
+                item.channelId,
+                item.channelName,
+                item.channelPnr,
+                item.channelTransponder.id,
+                NCC.ip2long(item.channelIPHR),
+                item.channelCam.id
+            ]).then(function(result){
+                refresh();
+            });
         };
 
         $scope.showStop = function (item) {
