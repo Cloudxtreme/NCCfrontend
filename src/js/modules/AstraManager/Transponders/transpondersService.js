@@ -58,4 +58,46 @@ nccApp.service('AstraManagerTransponders', ['jsonrpc',
                 return error;
             });
         };
+
+        this.runTransponder = function (id) {
+
+            return NCC.apiRequest({
+                method: 'runAstraTransponder',
+                data: [id]
+            }).then(function (result) {
+                return result;
+            }).catch(function (error) {
+                console.log('Error running transponder');
+                console.log(error);
+                return error;
+            })
+        };
+
+        this.stopTransponder = function (id) {
+
+            return NCC.apiRequest({
+                method: 'stopAstraTransponder',
+                data: [id]
+            }).then(function (result) {
+                return result;
+            }).catch(function (error) {
+                console.log('Error stopping transponder');
+                console.log(error);
+                return error;
+            })
+        };
+
+        this.getTransponderStatus = function (id) {
+
+            return NCC.apiRequest({
+                method: 'getAstraTransponderStatus',
+                data: [id]
+            }).then(function (result) {
+                return result;
+            }).catch(function (error) {
+                console.log('Error getting transponder status');
+                console.log(error);
+                return error;
+            })
+        };
     }]);

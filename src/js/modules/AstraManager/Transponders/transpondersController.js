@@ -147,12 +147,28 @@ nccControllers.controller('astraTranspondersController', ['$scope',
             item.panelStop = true;
         };
 
+        $scope.saveStop = function(item){
+            item.panelStop = false;
+
+            AstraManagerTransponders.stopTransponder(item.id).then(function(result){
+                refresh();
+            })
+        };
+
         $scope.cancelStop = function (item) {
             item.panelStop = false;
         };
 
         $scope.showRestart = function (item) {
             item.panelRestart = true;
+        };
+
+        $scope.saveRestart = function (item) {
+            item.panelRestart = false;
+
+            AstraManagerTransponders.runTransponder(item.id).then(function(result){
+                refresh();
+            });
         };
 
         $scope.cancelRestart = function (item) {
