@@ -90,6 +90,7 @@
     <table class="table table-bordered table-striped table-responsive table-hover">
         <thead>
             <tr>
+                <th></th>
                 <th>#</th>
                 <th>ID</th>
                 <th>Спутник</th>
@@ -107,6 +108,10 @@
         </thead>
         <tbody>
             <tr ng-repeat-start="transponder in transponders" ng-show="!transponder.panelEdit">
+                <td>
+                    <button class="btn btn-success btn-xs" ng-if="transponder.transponderStatus > 0"><i class="material-icons tiny">fiber_manual_record</i></button>
+                    <button class="btn btn-danger btn-xs" ng-if="transponder.transponderStatus == 0"><i class="material-icons tiny">fiber_manual_record</i></button>
+                </td>
                 <td>{{ $index }}</td>
                 <td>{{ transponder.id }}</td>
                 <td>{{ transponder.transponderSat }}</td>
@@ -120,10 +125,10 @@
                 <td>{{ transponder.transponderFEC }}</td>
                 <td>{{ transponder.transponderSymbolrate }}</td>
                 <td class="col-sm-3">
-                    <button class="btn btn-danger btn-xs" ng-click="showDelete(transponder)"><i class="material-icons">delete</i></button>
-                    <button class="btn btn-default btn-xs" ng-click="showEdit(transponder)"><i class="material-icons">mode_edit</i></button>
-                    <button class="btn btn-warning btn-xs" ng-click="showStop(transponder)"><i class="material-icons">stop</i></button>
-                    <button class="btn btn-warning btn-xs" ng-click="showRestart(transponder)"><i class="material-icons">replay</i></button>
+                    <button class="btn btn-danger btn-xs" ng-click="showDelete(transponder)"><i class="tiny material-icons">delete</i></button>
+                    <button class="btn btn-default btn-xs" ng-click="showEdit(transponder)"><i class="tiny material-icons">mode_edit</i></button>
+                    <button class="btn btn-danger btn-xs" ng-click="showStop(transponder)"><i class="tiny material-icons">stop</i></button>
+                    <button class="btn btn-success btn-xs" ng-click="showRestart(transponder)"><i class="tiny material-icons">replay</i></button>
 
                     <span ng-show="transponder.panelDelete">
                         <br>Удалить?
@@ -151,7 +156,7 @@
                 </td>
             </tr>
             <tr ng-repeat-end ng-show="transponder.panelEdit">
-                <td colspan="13">
+                <td colspan="14">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Редактирование транспондера #{{ $index }}

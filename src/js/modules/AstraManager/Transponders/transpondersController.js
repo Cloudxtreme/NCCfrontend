@@ -28,6 +28,8 @@ nccControllers.controller('astraTranspondersController', ['$scope',
 
             AstraManagerTransponders.getTransponders().then(function (transponders) {
                 $scope.transponders = transponders;
+
+                console.log(transponders);
             });
         }
 
@@ -147,10 +149,10 @@ nccControllers.controller('astraTranspondersController', ['$scope',
             item.panelStop = true;
         };
 
-        $scope.saveStop = function(item){
+        $scope.saveStop = function (item) {
             item.panelStop = false;
 
-            AstraManagerTransponders.stopTransponder(item.id).then(function(result){
+            AstraManagerTransponders.stopTransponder(item.id).then(function (result) {
                 refresh();
             })
         };
@@ -166,7 +168,7 @@ nccControllers.controller('astraTranspondersController', ['$scope',
         $scope.saveRestart = function (item) {
             item.panelRestart = false;
 
-            AstraManagerTransponders.runTransponder(item.id).then(function(result){
+            AstraManagerTransponders.runTransponder(item.id).then(function (result) {
                 refresh();
             });
         };
