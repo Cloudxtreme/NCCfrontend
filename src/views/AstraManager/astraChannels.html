@@ -68,6 +68,7 @@
             <th>Декодер</th>
             <th>Сервер</th>
             <th>Адаптер</th>
+            <th>IP</th>
             <th>Карта</th>
             <th></th>
         </tr>
@@ -77,11 +78,12 @@
             <td>{{ $index }}</td>
             <td>{{ channel.channelId }}</td>
             <td>{{ channel.channelName }}</td>
-            <td>{{ channel.channelPnr }}</td>
+            <td>{{ channel.channelPnr }} / {{ channel.channelPnr.toString(16) }} </td>
             <td>{{ channel.transponderSat+' '+channel.transponderFreq+channel.transponderPolarity }}</td>
             <td>{{ channel.camName }}</td>
             <td>{{ channel.serverName }}</td>
             <td>{{ channel.adapterDevice }}</td>
+            <td>{{ channel.channelIPHR }}</td>
             <td>{{ channel.adapterCard }}</td>
             <td class="col-sm-3">
                 <button class="btn btn-danger btn-xs" ng-click="showDelete(channel)"><i class="material-icons">delete</i></button>
@@ -115,7 +117,7 @@
             </td>
         </tr>
         <tr ng-repeat-end ng-show="channel.panelEdit">
-            <td colspan="10">
+            <td colspan="11">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Редактирование канала #{{ $index }}

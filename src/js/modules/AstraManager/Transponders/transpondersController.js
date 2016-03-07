@@ -10,9 +10,9 @@ nccControllers.controller('astraTranspondersController', ['$scope',
               AstraManagerAdapters) {
 
         $scope.polarities = ['L', 'R', 'V', 'H'];
-        $scope.fecs = ['3/4'];
-        $scope.symbolrates = [27500, 28800, 30000];
-        $scope.types = ['S2', 'S'];
+        $scope.fecs = ['2/3', '3/4', '5/6'];
+        $scope.symbolrates = [15000, 27500, 28000, 28800, 30000];
+        $scope.types = ['S', 'S2'];
         $scope.lnbs = ['9750:10600:11700', '10750:10750:11700'];
         $scope.sats = ['EUTELSAT 36°', 'INTELSAT 85°', 'Astra 4.8°', 'AMOS 4°'];
 
