@@ -39,6 +39,10 @@ nccControllers.controller('astraChannelsController', ['$scope',
 
             AstraManagerCams.getCams().then(function (cams) {
                 $scope.cams = cams;
+                $scope.cams.push({
+                    id: 0,
+                    camName: 'open',
+                });
             });
         };
 
@@ -88,6 +92,10 @@ nccControllers.controller('astraChannelsController', ['$scope',
 
             AstraManagerCams.getCams().then(function (cams) {
                 $scope.cams = cams;
+                $scope.cams.push({
+                    id: 0,
+                    camName: 'open',
+                });
 
                 item.channelCam = NCC.getItemById(item.camId, $scope.cams);
             });

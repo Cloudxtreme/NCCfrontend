@@ -80,7 +80,7 @@
             <td>{{ channel.channelName }}</td>
             <td>{{ channel.channelPnr }} / {{ channel.channelPnr.toString(16) }} </td>
             <td>{{ channel.transponderSat+' '+channel.transponderFreq+channel.transponderPolarity }}</td>
-            <td>{{ channel.camName }}</td>
+            <td>{{ (channel.camId>0)?channel.camName:'' }}</td>
             <td>{{ channel.serverName }}</td>
             <td>{{ channel.adapterDevice }}</td>
             <td>{{ channel.channelIPHR }}</td>
