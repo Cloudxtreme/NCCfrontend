@@ -76,13 +76,11 @@
                 <td class="col-sm-3">
                     <button class="btn btn-danger btn-xs" ng-click="showDelete(server)"><i class="material-icons">delete</i></button>
                     <button class="btn btn-default btn-xs" ng-click="showEdit(server)"><i class="material-icons">mode_edit</i></button>
-
+                    <br>
                     <span ng-show="server.panelDelete">
                         Удалить?
-                        <button class="btn btn-xs btn-danger" ng-click="saveDelete(server)"><span
-                                class="glyphicon glyphicon-ok"></span></button>
-                        <button class="btn btn-xs btn-default" ng-click="cancelDelete(server)"><span
-                                class="glyphicon glyphicon-remove"></span></button>
+                        <button class="btn btn-xs btn-danger" ng-click="saveDelete(server)"><i class="tiny material-icons">done</i></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelDelete(server)"><i class="tiny material-icons">block</i></button>
                     </span>
                 </td>
             </tr>

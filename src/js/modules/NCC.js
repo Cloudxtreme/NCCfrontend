@@ -15,7 +15,8 @@ nccApp.config(['$routeProvider', '$locationProvider', 'jsonrpcConfigProvider', '
 */
 
     jsonrpcConfigProvider.set({
-        url: nccProperties.API.url
+        //url: nccProperties.API.url
+        servers: nccProperties.API.servers
     });
 
     for (var r in nccRoutes) {

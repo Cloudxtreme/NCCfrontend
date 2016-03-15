@@ -95,14 +95,15 @@
                 <th>ID</th>
                 <th>Спутник</th>
                 <th>Частота</th>
-                <th>Поляризация</th>
+                <th></th>
                 <th>Тип</th>
                 <th>Сервер</th>
                 <th>Device</th>
                 <th>Адаптер</th>
                 <th>LNB</th>
                 <th>FEC</th>
-                <th>Symbolrate</th>
+                <th>S/R</th>
+                <th>SNR</th>
                 <th></th>
             </tr>
         </thead>
@@ -124,6 +125,7 @@
                 <td>{{ transponder.transponderLNB }}</td>
                 <td>{{ transponder.transponderFEC }}</td>
                 <td>{{ transponder.transponderSymbolrate }}</td>
+                <td>{{ transponder.snr }}</td>
                 <td class="col-sm-3">
                     <button class="btn btn-danger btn-xs" ng-click="showDelete(transponder)"><i class="tiny material-icons">delete</i></button>
                     <button class="btn btn-default btn-xs" ng-click="showEdit(transponder)"><i class="tiny material-icons">mode_edit</i></button>
@@ -132,31 +134,25 @@
 
                     <span ng-show="transponder.panelDelete">
                         <br>Удалить?
-                        <button class="btn btn-xs btn-danger" ng-click="saveDelete(transponder)"><span
-                                class="glyphicon glyphicon-ok"></span></button>
-                        <button class="btn btn-xs btn-default" ng-click="cancelDelete(transponder)"><span
-                                class="glyphicon glyphicon-remove"></span></button>
+                        <button class="btn btn-xs btn-danger" ng-click="saveDelete(transponder)"><i class="tiny material-icons">done</i></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelDelete(transponder)"><i class="tiny material-icons">block</i></button>
                     </span>
 
                     <span ng-show="transponder.panelStop">
                         <br>Выключить?
-                        <button class="btn btn-xs btn-danger" ng-click="saveStop(transponder)"><span
-                                class="glyphicon glyphicon-ok"></span></button>
-                        <button class="btn btn-xs btn-default" ng-click="cancelStop(transponder)"><span
-                                class="glyphicon glyphicon-remove"></span></button>
+                        <button class="btn btn-xs btn-danger" ng-click="saveStop(transponder)"><i class="tiny material-icons">done</i></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelStop(transponder)"><i class="tiny material-icons">block</i></button>
                     </span>
 
                     <span ng-show="transponder.panelRestart">
                         <br>Перезапустить?
-                        <button class="btn btn-xs btn-danger" ng-click="saveRestart(transponder)"><span
-                                class="glyphicon glyphicon-ok"></span></button>
-                        <button class="btn btn-xs btn-default" ng-click="cancelRestart(transponder)"><span
-                                class="glyphicon glyphicon-remove"></span></button>
+                        <button class="btn btn-xs btn-danger" ng-click="saveRestart(transponder)"><i class="tiny material-icons">done</i></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelRestart(transponder)"><i class="tiny material-icons">block</i></button>
                     </span>
                 </td>
             </tr>
             <tr ng-repeat-end ng-show="transponder.panelEdit">
-                <td colspan="14">
+                <td colspan="15">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Редактирование транспондера #{{ $index }}

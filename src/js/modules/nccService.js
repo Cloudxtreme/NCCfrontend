@@ -24,16 +24,19 @@ nccApp.service('NCC', ['jsonrpc', function (jsonrpc) {
         return null;
     };
 
-    this.apiRequest = function (request) {
+    this.apiRequest = function (request, server) {
         var login = 'admin';
         var password = 'CtrhtnysqGfhjkm';
 
         var apiKey = CryptoJS.MD5(CryptoJS.MD5(login) + password).toString();
 
-        console.log('apiRequest: ' + request.method + ' with apiKey=' + apiKey);
-        //console.log([apiKey].concat(request.data));
+        if(typeof( server) == 'undefined'){
+            server = nccProperties.API.servers[0].name;
+        }
 
-        return jsonrpc.request(request.method, [apiKey].concat(request.data)).then(function (result) {
+        //console.log('apiRequest: server='+server+' ' + request.method + ' with apiKey=' + apiKey);
+
+        return jsonrpc.request(server, request.method, [apiKey].concat(request.data)).then(function (result) {
             return result;
         }).catch(function (error) {
             console.log('apiRequest error');

@@ -18,6 +18,22 @@ nccControllers.controller('astraTranspondersController', ['$scope',
 
         $scope.getItemById = NCC.getItemById;
 
+        function refreshStatus(){
+            for (t in $scope.transponders) {
+                var item = $scope.transponders[t];
+
+                AstraManagerTransponders.getTransponderStatus(item.id, NCC.long2ip(item.serverIP)).then(function (status) {
+                    console.log('Got transponder status: ', status);
+                    if(status) for (d in $scope.transponders) {
+                        if ($scope.transponders[d].id == status.id){
+                            $scope.transponders[d].transponderStatus = status.status;
+                            $scope.transponders[d].snr = status.snr;
+                        }
+                    }
+                });
+            }
+        }
+
         function refresh() {
             $scope.servers = [];
             AstraManagerServers.getServers().then(function (servers) {
@@ -29,11 +45,20 @@ nccControllers.controller('astraTranspondersController', ['$scope',
             AstraManagerTransponders.getTransponders().then(function (transponders) {
                 $scope.transponders = transponders;
 
-                console.log(transponders);
+                for(t in $scope.transponders){
+                    $scope.transponders[t].transponderStatus = 0;
+                    $scope.transponders[t].snr = '';
+                }
+
+                refreshStatus();
             });
         }
 
         refresh();
+
+        setInterval(function(){
+            refreshStatus();
+        }, 1000);
 
         $scope.updateAdapters = function (item) {
             if (item == undefined) item = $scope;
@@ -152,7 +177,7 @@ nccControllers.controller('astraTranspondersController', ['$scope',
         $scope.saveStop = function (item) {
             item.panelStop = false;
 
-            AstraManagerTransponders.stopTransponder(item.id).then(function (result) {
+            AstraManagerTransponders.stopTransponder(item.id, NCC.long2ip(item.serverIP)).then(function (result) {
                 refresh();
             })
         };
@@ -168,7 +193,7 @@ nccControllers.controller('astraTranspondersController', ['$scope',
         $scope.saveRestart = function (item) {
             item.panelRestart = false;
 
-            AstraManagerTransponders.runTransponder(item.id).then(function (result) {
+            AstraManagerTransponders.runTransponder(item.id, NCC.long2ip(item.serverIP)).then(function (result) {
                 refresh();
             });
         };

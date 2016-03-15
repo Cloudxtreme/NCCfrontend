@@ -59,12 +59,12 @@ nccApp.service('AstraManagerTransponders', ['jsonrpc',
             });
         };
 
-        this.runTransponder = function (id) {
+        this.runTransponder = function (id, ip) {
 
             return NCC.apiRequest({
                 method: 'runAstraTransponder',
                 data: [id]
-            }).then(function (result) {
+            }, ip).then(function (result) {
                 return result;
             }).catch(function (error) {
                 console.log('Error running transponder');
@@ -73,12 +73,12 @@ nccApp.service('AstraManagerTransponders', ['jsonrpc',
             })
         };
 
-        this.stopTransponder = function (id) {
+        this.stopTransponder = function (id, ip) {
 
             return NCC.apiRequest({
                 method: 'stopAstraTransponder',
                 data: [id]
-            }).then(function (result) {
+            }, ip).then(function (result) {
                 return result;
             }).catch(function (error) {
                 console.log('Error stopping transponder');
@@ -87,12 +87,12 @@ nccApp.service('AstraManagerTransponders', ['jsonrpc',
             })
         };
 
-        this.getTransponderStatus = function (id) {
+        this.getTransponderStatus = function (id, ip) {
 
             return NCC.apiRequest({
                 method: 'getAstraTransponderStatus',
                 data: [id]
-            }).then(function (result) {
+            }, ip).then(function (result) {
                 return result;
             }).catch(function (error) {
                 console.log('Error getting transponder status');

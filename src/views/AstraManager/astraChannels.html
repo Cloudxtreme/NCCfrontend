@@ -30,6 +30,12 @@
                     </div>
                     <div class="col-sm-1">
                         <div class="form-group label-static">
+                            <label for="channelFilter" class="control-label">Filter</label>
+                            <input type="text" class="form-control" id="channelFilter" ng-model="channelFilter">
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group label-static">
                             <label for="channelCam" class="control-label">Декодер</label>
                             <select class="form-control" id="channelCam" ng-model="channelCam" ng-options="item as item.camName for item in cams track by item.id"></select>
                         </div>
@@ -93,26 +99,20 @@
 
                     <span ng-show="channel.panelDelete">
                         <br>Удалить?
-                        <button class="btn btn-xs btn-danger" ng-click="saveDelete(channel)"><span
-                                class="glyphicon glyphicon-ok"></span></button>
-                        <button class="btn btn-xs btn-default" ng-click="cancelDelete(channel)"><span
-                                class="glyphicon glyphicon-remove"></span></button>
+                        <button class="btn btn-xs btn-danger" ng-click="saveDelete(channel)"><i class="tiny material-icons">done</i></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelDelete(channel)"><i class="tiny material-icons">block</i></button>
                     </span>
 
                     <span ng-show="channel.panelStop">
                         <br>Выключить?
-                        <button class="btn btn-xs btn-danger" ng-click="saveStop(channel)"><span
-                                class="glyphicon glyphicon-ok"></span></button>
-                        <button class="btn btn-xs btn-default" ng-click="cancelStop(channel)"><span
-                                class="glyphicon glyphicon-remove"></span></button>
+                        <button class="btn btn-xs btn-danger" ng-click="saveStop(channel)"><i class="tiny material-icons">done</i></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelStop(channel)"><i class="tiny material-icons">block</i></button>
                     </span>
 
                     <span ng-show="channel.panelRestart">
                         <br>Перезапустить?
-                        <button class="btn btn-xs btn-danger" ng-click="saveRestart(channel)"><span
-                                class="glyphicon glyphicon-ok"></span></button>
-                        <button class="btn btn-xs btn-default" ng-click="cancelRestart(channel)"><span
-                                class="glyphicon glyphicon-remove"></span></button>
+                        <button class="btn btn-xs btn-danger" ng-click="saveRestart(channel)"><i class="tiny material-icons">done</i></button>
+                        <button class="btn btn-xs btn-default" ng-click="cancelRestart(channel)"><i class="tiny material-icons">block</i></button>
                     </span>
             </td>
         </tr>
@@ -147,6 +147,12 @@
                                     <div class="form-group label-static">
                                         <label for="channelPnr" class="control-label">PNR</label>
                                         <input type="text" class="form-control" id="channelPnr" ng-model="channel.channelPnr">
+                                    </div>
+                                </div>
+                                <div class="col-sm-1">
+                                    <div class="form-group label-static">
+                                        <label for="channelFilter" class="control-label">Filter</label>
+                                        <input type="text" class="form-control" id="channelFilter" ng-model="channel.channelFilter">
                                     </div>
                                 </div>
                                 <div class="col-sm-1">
